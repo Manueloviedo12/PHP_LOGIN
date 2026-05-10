@@ -8,7 +8,7 @@ class AuthController {
 
     private $usuarioModel;
 
-    // Constructor: inicializa el modelo Usuario con la conexión a BD
+    // Constructor: inicializa el modelo Usuario pERSONAL con la conexión a BD
     public function __construct($conn) {
         $this->usuarioModel = new Usuario($conn);
     }
