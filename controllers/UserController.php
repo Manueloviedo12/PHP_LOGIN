@@ -4,12 +4,11 @@ require_once __DIR__ . "/../db/conexion.php";
 
 class UserController {
    private $conn;
-
     public function __construct($conn) {
         $this->conn = $conn;
     }
    
-   public function perfil() {
+public function perfil() {
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -19,12 +18,28 @@ class UserController {
         header("Location: index.php?action=login");
         exit;
     }
-
     $user = $_SESSION['user'];
+
+    $perfil = $this->conn->query("
+        SELECT * FROM usuarios 
+        WHERE id = {$user['id']} 
+        LIMIT 1
+    ")->fetch_assoc();
+
+    // 🔹 COMENTARIOS
+    $comentarios = $this->conn->query("
+        SELECT nombre, correo, mensaje 
+        FROM contactos 
+        ORDER BY id DESC
+    ");
 
     include __DIR__ . "/../views/perfil.php";
 }
 
+   public function perfilpublico() {
+
+    include __DIR__ . "/../views/perfil_publico.php";
+}
 
 
 public function actualizarPerfil() {
@@ -42,7 +57,7 @@ public function actualizarPerfil() {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $id = $_SESSION['user']['id']; // 🔥 CORRECTO
+        $id = $_SESSION['user']['id']; //
         $nombre = $_POST['nombre'];
         $correo = $_POST['correo'];
 
@@ -55,6 +70,7 @@ public function actualizarPerfil() {
             // 🔥 ACTUALIZA SESIÓN TAMBIÉN
             $_SESSION['user']['nombre'] = $nombre;
             $_SESSION['user']['correo'] = $correo;
+    $_SESSION['mensaje'] = "✔ Datos actualizados correctamente";
 
             header("Location: index.php?action=perfil");
             exit;

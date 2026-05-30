@@ -1,61 +1,83 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 <?php include __DIR__ . "/layout/header.php"; ?>
+<link rel="stylesheet" href="css/stylesregister.css">
 
-<body class="bg-light">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container mt-5">
+<?php if (isset($_SESSION['error'])): ?>
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: '<?= $_SESSION['error']; ?>',
+    confirmButtonColor: '#ff4d4d'
+});
+</script>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
 
-    <div class="row justify-content-center">
+<?php if (isset($_SESSION['success'])): ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Registro exitoso',
+    text: '<?= $_SESSION['success']; ?>',
+    confirmButtonColor: '#00c896',
+    timer: 2500,
+    showConfirmButton: false
+});
+</script>
+<?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+<div class="wrapper">
+    <div class="reg-card">
 
-        <div class="col-md-5">
+        <div class="reg-header">
+            <div class="header-icon">🚀</div>
+            <h4>Crear cuenta</h4>
+            <p>Regístrate para continuar</p>
+        </div>
 
-            <div class="card shadow">
+        <div class="reg-body">
 
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>Registro</h4>
+            <?php if (!empty($mensaje)) : ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($mensaje) ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST">
+
+                <div class="field">
+                    <label>Cédula</label>
+                    <input type="text" name="cedula" required>
                 </div>
 
-                <div class="card-body">
-
-                    <!--  MENSAJE -->
-                    <?php if (!empty($mensaje)) : ?>
-                        <div class="alert alert-danger text-center">
-                            <?= $mensaje ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <form method="POST">
-
-                        <input type="text" name="cedula" class="form-control mb-2" placeholder="Cédula" required>
-
-                        <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required>
-
-                        <input type="email" name="correo" class="form-control mb-2" placeholder="Correo" required>
-
-                        <input type="password" name="password" class="form-control mb-2" placeholder="Contraseña" required>
-
-                        <button class="btn btn-success w-100">
-                            Registrar
-                        </button>
-
-                    </form>
-
+                <div class="field">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" required>
                 </div>
 
+                <div class="field">
+                    <label>Correo</label>
+                    <input type="email" name="correo" required>
+                </div>
+
+                <div class="field">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <button class="btn-register">Crear cuenta</button>
+
+            </form>
+
+            <div class="login-link">
+                ¿Ya tienes cuenta? <a href="<?= BASE_URL ?>index.php?action=login">Inicia sesión</a>
             </div>
 
         </div>
-
     </div>
 
 </div>
 
-</body>
-</html>
+<?php include __DIR__ . "/layout/footer.php"; ?>

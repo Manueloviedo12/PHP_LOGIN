@@ -1,0 +1,122 @@
+:root {
+    --accent: #00c896;
+    --dark: #0b0f1a;
+    --surface: #1a2035;
+    --text: #e8ecf5;
+    --muted: #7b85a0;
+}
+
+/* ❗ IMPORTANTE: NO ROMPER HEADER */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* CENTRADO SOLO DEL CONTENIDO */
+.login-container {
+    min-height: calc(100vh - 70px); /* respeta navbar/header */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+.login-card {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 35px 90px rgba(0,0,0,0.6);
+}
+
+/* HEADER INTERNO (igual que registro) */
+.login-header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #0d1e38, #0b2a20);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.login-header h4 {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+}
+
+.login-header span {
+    color: var(--accent);
+}
+
+/* BODY */
+.login-body {
+    padding: 30px;
+}
+
+/* FIELDS */
+.field {
+    margin-bottom: 15px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #0b0f1a;
+    color: var(--text);
+    outline: none;
+    transition: 0.2s;
+}
+
+.field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.1);
+    transform: scale(1.01);
+}
+
+/* BOTÓN */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-login:hover {
+    opacity: 0.85;
+}
+
+/* FOOTER */
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.login-footer a {
+    color: var(--accent);
+    text-decoration: none;
+}

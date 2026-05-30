@@ -1,43 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-
-
 <?php include __DIR__ . "/layout/header.php"; ?>
+<link rel="stylesheet" href="css/styleslogin.css">
 
-<body class="bg-light">
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-
-    <div class="card shadow" style="width: 100%; max-width: 400px;">
-
-        <div class="card-header bg-dark text-white text-center">
-            <h4>Login</h4>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            🔐 <h4>Iniciar <span>Sesión</span></h4>
         </div>
-
-        <div class="card-body">
+        <div class="login-body">
 
             <form method="POST">
 
-                <div class="mb-3">
+                <div class="field">
                     <label>Correo</label>
-                    <input type="email" name="correo" class="form-control" required>
+                    <input type="email" name="correo" placeholder="tu@email.com" required>
                 </div>
 
-                <div class="mb-3">
+                <div class="field">
                     <label>Contraseña</label>
-                    <input type="password" name="password" class="form-control" required>
+                    <input type="password" name="password" placeholder="••••••••" required>
                 </div>
 
-                <button class="btn btn-primary w-100">Ingresar</button>
+                <button class="btn-login">Entrar</button>
 
             </form>
+
+            <div class="login-footer">
+                ¿No tienes cuenta?
+                <a href="<?= BASE_URL ?>index.php?action=register">Regístrate</a>
+            </div>
 
         </div>
 
@@ -45,15 +36,18 @@
 
 </div>
 
-<?php if (!empty($error)): ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if (isset($_SESSION['error'])): ?>
 <script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: '<?= $error ?>'
-    });
+Swal.fire({
+    icon: 'error',
+    title: 'Error de acceso',
+    text: '<?= $_SESSION['error']; ?>',
+    confirmButtonColor: '#ff4d4d'
+});
 </script>
+<?php unset($_SESSION['error']); ?>
 <?php endif; ?>
 
-</body>
-</html>
+<?php include __DIR__ . "/layout/footer.php"; ?>
